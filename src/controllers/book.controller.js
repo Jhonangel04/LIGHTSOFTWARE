@@ -1,12 +1,11 @@
 import BookModel from "../models/Book.model.js";
 
 export const createBook = async (req, res) => {
-  const { name, editorial, author, genre, yearOfEdition, price } = req.body;
-
-  if (!name || !editorial || !author || !genre || !yearOfEdition || !price)
-    return res.json({ message: "required fields" });
-
   try {
+    const { name, editorial, author, genre, yearOfEdition, price } = req.body;
+    if (!name || !editorial || !author || !genre || !yearOfEdition || !price)
+      return res.json({ message: "required fields" });
+
     const createBook = new BookModel({
       name: name,
       editorial: editorial,
@@ -46,9 +45,8 @@ export const findBooks = async (req, res) => {
 };
 
 export const findBook = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
     const findBook = await BookModel.findById(id);
     if (!findBook) return res.status(404).json({ message: "Book not found" });
     res.json(findBook);
@@ -59,12 +57,12 @@ export const findBook = async (req, res) => {
 };
 
 export const updateBook = async (req, res) => {
-  const { id } = req.params;
-  const { name, editorial, author, genre, yearOfEdition, price } = req.body;
-
-  if (!name || !editorial || !author || !genre || !yearOfEdition || !price)
-    return res.json({ message: "required fields" });
   try {
+    const { id } = req.params;
+    const { name, editorial, author, genre, yearOfEdition, price } = req.body;
+
+    if (!name || !editorial || !author || !genre || !yearOfEdition || !price)
+      return res.json({ message: "required fields" });
     const editBook = await BookModel.findByIdAndUpdate(id, req.body, {
       new: true,
     });
@@ -80,8 +78,8 @@ export const updateBook = async (req, res) => {
 };
 
 export const deleteBook = async (req, res) => {
-  const { id } = req.params;
   try {
+    const { id } = req.params;
     const deleteBook = await BookModel.findByIdAndUpdate(
       id,
       { status: "inactive" },
