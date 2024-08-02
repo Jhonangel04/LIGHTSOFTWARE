@@ -8,7 +8,12 @@ import bookRoutes from "./routes/book.routes.js";
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
